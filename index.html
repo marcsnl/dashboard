@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  
+   <!-- Page Title -->
+  <title>Asset</title>
+
+  <!-- Initial tags -->
+  <meta charset="UTF-8" />
+  <meta name="description" content="This is a program that provides user a dashboard for their assets" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+  <!-- Page Icon | Activate if outside of CodePen-->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    
+  <!-- style.css link -->
+  <link rel="stylesheet" href="style.css" />
+    
+  <!-- Font Awsome local link -->
+  <!-- <link rel="stylesheet" href="all.css" /> -->
+
+  <!-- Font Awsome main link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    
+</head>
+    <body>
+
+    <!-- Body Wrapper-->
+    <div class="wrapper">
+
+      <!-- Navigation Bar -->
+      <nav>
+        <div class="navigation-bar">
+
+          <!-- Logo and/or Title Area of Navigation Bar -->
+          <a  id="logoLink" href="https://marcsnl.github.io/" target="_blank"><div class="title-page-area"><img src="assets/images/page-logo.png" class="page-logo" alt="page logo"/></div></a>
+          
+          <!-- Navigation Bar Links-->
+          <ul class="nav-links">
+            <li><a href="#rates">Rates</a></li>
+            <li><a href="#dashboard" class="active-nav">Dashboard</a></li>
+            <li><a href="#guide">Guide</a></li>
+          </ul>
+
+          <!-- Hamburger Toggle Links For Mobile Screens -->
+          <div class="nav-links-menu-toggle">
+            <i class="fas fa-bars"></i>
+          </div>
+
+          <!-- Appearance Area (Color Theme and DarkMode) of Navigation Bar -->
+          <div class="appearance-area">
+            <!-- Darkmode Button -->
+            <div class="dark-mode-btn" title="Dark Mode">
+              <!-- Data Color : Hex  0-White 1-text-color 2-primary-color 3-secondary-color 4-ui-bg -->
+              <i class="btn fas fa-moon" data-color="#fff #e4e6eb #272B2F #1D2124 #171A1D"></i>
+            </div>
+
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content Section -->
+      <main class="content">
+      
+        <!-- Rates Section -->
+        <section id="rates" class="page-content">
+            <h3>Current Rates</h3>
+
+            <div class="rateSection" id="crypto">
+                <h2>🪙 Crypto Prices (PHP)</h2>
+                <table id="crypto-table">
+                    <thead>
+                    <tr>
+                        <th>Coin</th>
+                        <th>Price (PHP)</th>
+                        <th>24h %</th>
+                    </tr>
+                    </thead>
+                    <tbody id="crypto-list"></tbody>
+                </table>
+                <div class="attribution">
+                    Crypto rates by <a href="https://www.coingecko.com" class="color-text">CoinGecko</a>
+                </div>
+            </div>
+
+            <div class="rateSection" id="forex">
+                <h2>🌍 Reserve Currencies (PHP)</h2>
+                <table id="forex-table">
+                    <thead>
+                    <tr>
+                        <th>Currency</th>
+                        <th>Rate</th>
+                    </tr>
+                    </thead>
+                    <tbody id="forex-list"></tbody>
+                </table>
+                <div class="attribution">
+                    Forex rates by <a href="https://www.exchangerate-api.com" class="color-text">ExchangeRate-API</a>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="page-content active-section">
+            <h3>Dashboard</h3>
+
+        </section>
+
+        <!-- Guide Section -->
+        <section id="guide" class="page-content">
+            <h3>Guide</h3>
+
+        </section>
+
+      </main>
+
+      <footer class="footer">
+        <p>Released under <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CC0</a>. No rights reserved.</p>
+      </footer>
+    
+    </div> 
+
+  </body>
+
+  <!-- partial -->
+  <script src="scripts/core-function.js"></script>
+  <script src="scripts/rate-api.js"></script>
+
+</html>

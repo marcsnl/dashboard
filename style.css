@@ -1,0 +1,381 @@
+/* -------- Global Reset -------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* -------- Global Variables -------- */
+:root {
+  --white: #fff;
+  --text-color: #000000;
+  --primary-color: #000;
+  --secondary-color: #272B2F;
+  --ui-bg: #fff;
+}
+
+/* -------- Page Layout Setup -------- */
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--ui-bg);
+  color: var(--text-color);
+}
+
+button{
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-size: 18px;
+  height: 50px;
+  width: 200px;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+button:hover{
+  background: var(--secondary-color)
+}
+
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* -------- Navigation Bar -------- */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: var(--primary-color);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.navigation-bar {
+  max-width: 1300px;
+  height: 100%;
+  margin: auto;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation-bar a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 18px;
+  opacity: 0.75;
+}
+
+.navigation-bar a:hover,
+.navigation-bar a.active-nav {
+  opacity: 1;
+}
+
+.title-page-area{
+  font-size: 30px;
+  font-weight: 600;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  cursor: default;
+  user-select: none;
+}
+
+#logoLink{
+  font-size: 30px;
+  font-weight: 600;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+.page-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid var(--secondary-color);
+}
+
+/* -------- Navigation Bar Links -------- */
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left:26px;
+}
+
+.nav-links li {
+  list-style: none;
+  margin: 0 8px;
+  padding-right: 10px;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.nav-links li:last-child {
+  border-right: none;
+}
+
+.nav-links-menu-toggle {
+  display: none;
+  font-size: 24px;
+  color: var(--white);
+  cursor: pointer;
+}
+
+/* -------- Appearance Area Style -------- */
+.appearance-area {
+  display: flex;
+  align-items: center;
+}
+
+.dark-mode-btn {
+  width: 50px;
+  height: 50px;
+  background: var(--secondary-color);
+  color: var(--white);
+  border-radius: 6px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  margin-left: 10px;
+  opacity: 0.8;
+}
+
+.dark-mode-btn:hover {
+  opacity: 1;
+}
+
+/* -------- Page Content Style -------- */
+.content {
+  flex: 1;
+  padding-top: 50px;
+}
+
+/* -------- Page Links Style -------- */
+
+
+
+
+
+
+/* -------- Main Section Style -------- */
+.page-content {
+  margin-top: 70px;
+  padding: 0 60px;
+  background: var(--ui-bg);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.page-content.active-section {
+  display: flex;
+}
+
+.page-content h3 {
+  font-size: 35px;
+}
+
+.color-text {
+  color: var(--primary-color);
+}
+
+.page-content p {
+  font-size: 16px;
+  max-width: 700px;
+  margin: 20px 0 30px;
+}
+
+/* -------- Table Styles -------- */
+.rateSection {
+  margin: 20px auto;
+  max-width: 800px;
+  background: var(--ui-bg);
+  padding: 20px;
+  border: var(--text-color) 1px solid;
+  border-radius: 6px; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.rateSection h2 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  font-size: 24px;
+  color: var(--text-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px dashed #ccc;
+}
+
+th {
+  background-color: var(--ui-bg);
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+#crypto-table th, #crypto-table td {
+  text-align: center;
+}
+
+#crypto-table th:first-child, #crypto-table td:first-child {
+  text-align: center;
+}
+
+#forex-table th, #forex-table td {
+  text-align: center;
+  width: 50%;
+}
+
+.positive {
+  color: #28a745;
+}
+
+.negative {
+  color: #dc3545;
+}
+
+.na {
+  color: #888;
+}
+
+.error {
+  color: #dc3545;
+  text-align: center;
+  padding: 12px;
+}
+
+.coin-link {
+  display: inline-block;
+  padding: 8px 12px;
+  background: var(--primary-color);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.coin-link:hover {
+  background: var(--secondary-color);
+}
+
+.attribution {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+  color: var(--text-color);
+}
+
+.attribution a {
+  text-decoration: none;
+}
+
+/* -------- Footer -------- */
+.footer {
+  background: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+}
+
+.footer a{
+    color: white;
+    text-decoration: none;
+}
+
+/* -------- Dark Mode Theme -------- */
+.color-text.darkMode {
+  color: #FFD700;  /* yellow */
+}
+
+/* --------- Other Function Mode and Styles ----- */
+
+.hidden{
+  display: none;
+}
+
+
+/* -------- Responsive Media -------- */
+@media (max-width: 1100px) {
+  .page-content {
+    padding: 0 30px;
+  }
+
+  .page-content p {
+    width: 90%;
+  }
+}
+
+/* ------- Mobile Device ------- */
+@media (max-width: 768px) {
+  .nav-links-menu-toggle {
+    display: block;
+    margin-left: 25px;
+
+  }
+  
+  .nav-links {
+    position: absolute;
+    top: calc(70px + 10px); /* navigation-bar height + gap */
+    left: 43%;
+    align-items: center;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    display: none; /* hidden by default */
+    width: auto;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links li {
+    border: none;
+    margin: 10px 0;
+  }
+
+  .appearance-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 25px;
+  }
+  
+  
+}
