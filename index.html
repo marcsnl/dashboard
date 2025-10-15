@@ -1,131 +1,132 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   
-   <!-- Page Title -->
-  <title>Asset</title>
+  <!-- Page Title -->
+  <title>Dashboard</title>
 
-  <!-- Initial tags -->
-  <meta charset="UTF-8" />
-  <meta name="description" content="This is a program that provides user a dashboard for their assets" />
+  <!-- Meta -->
+  <meta name="description" content="dashboard for advanced type of project" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-  <!-- Page Icon | Activate if outside of CodePen-->
-  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/marcsnl/assets/main/graphics/main-logo.png" /> 
     
-  <!-- style.css link -->
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-    
-  <!-- Font Awsome local link -->
-  <!-- <link rel="stylesheet" href="all.css" /> -->
 
-  <!-- Font Awsome main link -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer"/> 
 </head>
-    <body>
 
-    <!-- Body Wrapper-->
-    <div class="wrapper">
+<body>
+  <div class="wrapper">
 
-      <!-- Navigation Bar -->
-      <nav>
-        <div class="navigation-bar">
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="navigation-bar">
 
-          <!-- Logo and/or Title Area of Navigation Bar -->
-          <a  id="logoLink" href="https://marcsnl.github.io/" target="_blank"><div class="title-page-area"><img src="assets/images/page-logo.png" class="page-logo" alt="page logo"/></div></a>
-          
-          <!-- Navigation Bar Links-->
-          <ul class="nav-links">
-            <li><a href="#rates">Rates</a></li>
-            <li><a href="#dashboard" class="active-nav">Dashboard</a></li>
-            <li><a href="#guide">Guide</a></li>
-          </ul>
+        <!-- Logo -->
+        <div class="title-page-area">
+          <a id="titleLink" href="https://marcsnl.github.io/" target="_blank">
+            <img src="https://raw.githubusercontent.com/marcsnl/assets/main/graphics/main-logo.png" class="page-logo" alt="page logo"/>
+          </a>
+        </div>
 
-          <!-- Hamburger Toggle Links For Mobile Screens -->
-          <div class="nav-links-menu-toggle">
-            <i class="fas fa-bars"></i>
+        <!-- Appearance / Dark Mode -->
+        <div class="accessory-area">
+          <div class="location-btn" title="Activate Location">
+            <i class="btn fa-solid fa-location-dot"></i>
           </div>
+          <div class="dark-mode-btn" title="Dark Mode">
+            <i class="btn fas fa-moon" data-color="#fff #e4e6eb #272B2F #1D2124 #171A1D"></i>
+          </div>
+            
+        </div>
+      </div>
+    </nav>
 
-          <!-- Appearance Area (Color Theme and DarkMode) of Navigation Bar -->
-          <div class="appearance-area">
-            <!-- Darkmode Button -->
-            <div class="dark-mode-btn" title="Dark Mode">
-              <!-- Data Color : Hex  0-White 1-text-color 2-primary-color 3-secondary-color 4-ui-bg -->
-              <i class="btn fas fa-moon" data-color="#fff #e4e6eb #272B2F #1D2124 #171A1D"></i>
+    <!-- Main Content -->
+    <main class="page-content content">
+      <h2 class="page-content-title">Dashboard</h2>
+      <div class="date-time-wrapper">
+        <p id="currentDayAndTime"></p>
+        <p id="currentDate"></p>
+      </div>
+      <div class="box-container">
+
+        <!-- Weather Area -->
+        <div class="box" id="weather-box">
+          <h3><i class="fa-solid fa-sun"></i> - Weather - <i class="fa-solid fa-cloud"></i></h3>
+          <small class="note">Powered by Open-Meteo</small>
+          <div class="weather-content">Loading weather...</div>
+        </div>
+
+        <!-- World Clock Area -->
+        <div class="box">
+          <h3><i class="fa-solid fa-earth-americas"></i> - World Clock - <i class="fa-solid fa-clock"></i></h3>
+          <small class="note">Powered by World Time API (native JS)</small>
+        </div>
+
+        <!-- Global Currency Area -->
+        <div class="box">
+          <h3><i class="fa-solid fa-globe"></i> - Global Currency - <i class="fa-solid fa-peso-sign"></i></h3>
+          <small class="note"> Powered by Open ER API</small>
+        </div>
+
+        <!-- Local News Area -->
+        <div class="box">
+          <h3><i class="fa-solid fa-building"></i> - Local News - <i class="fa-solid fa-newspaper"></i></h3>
+          <small class="note">Powered by PH News RSS • via AllOrigins</small>
+          <div class="local-news-content">
+            <div class="local-news-text-container">
+              <div class="local-news-text-ui">
+                <p class="local-news-text">Loading...</p>
+              </div>  
             </div>
-
+            <button class="news-btn" id="localNewsReadBtn">Read</button>
+            <button class="news-btn" id="localNewsRefreshBtn">Refresh</button>
+            <button class="news-btn" id="localNewsLinkBtn">Local News <i class="fa-solid fa-square-arrow-up-right"></i></button>
           </div>
         </div>
-      </nav>
 
-      <!-- Main Content Section -->
-      <main class="content">
-      
-        <!-- Rates Section -->
-        <section id="rates" class="page-content">
-            <h3>Current Rates</h3>
-
-            <div class="rateSection" id="crypto">
-                <h2>🪙 Crypto Prices (PHP)</h2>
-                <table id="crypto-table">
-                    <thead>
-                    <tr>
-                        <th>Coin</th>
-                        <th>Price (PHP)</th>
-                        <th>24h %</th>
-                    </tr>
-                    </thead>
-                    <tbody id="crypto-list"></tbody>
-                </table>
-                <div class="attribution">
-                    Crypto rates by <a href="https://www.coingecko.com" class="color-text">CoinGecko</a>
-                </div>
+        <!-- Global News Area -->
+        <div class="box">
+          <h3><i class="fa-solid fa-earth-americas"></i> - World News - <i class="fa-solid fa-newspaper"></i></h3>
+          <small class="note">Powered by BBC News RSS • via AllOrigins</small>
+          <div class="global-news-content">
+            <div class="global-news-text-container">
+              <div class="global-news-text-ui">
+                <p class="global-news-text">Loading...</p>
+              </div>  
             </div>
+            <button class="news-btn" id="globalNewsReadBtn">Read</button>
+            <button class="news-btn" id="globalNewsRefreshBtn">Refresh</button>
+            <button class="news-btn" id="worldNewsLinkBtn" type="button">
+  BBC News <i class="fa-solid fa-square-arrow-up-right"></i>
+</button>
+          </div>
+        </div>
 
-            <div class="rateSection" id="forex">
-                <h2>🌍 Reserve Currencies (PHP)</h2>
-                <table id="forex-table">
-                    <thead>
-                    <tr>
-                        <th>Currency</th>
-                        <th>Rate</th>
-                    </tr>
-                    </thead>
-                    <tbody id="forex-list"></tbody>
-                </table>
-                <div class="attribution">
-                    Forex rates by <a href="https://www.exchangerate-api.com" class="color-text">ExchangeRate-API</a>
-                </div>
-            </div>
+        <!-- Crypto Area -->
+        <div class="box">
+          <h3><i class="fa-solid fa-bitcoin-sign"></i> - Crypto Market - <i class="fa-solid fa-peso-sign"></i></h3>
+          <small class="note">Powered by CoinGecko API</small>
+        </div>
 
-        </section>
+      </div>
+    </main>
 
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="page-content active-section">
-            <h3>Dashboard</h3>
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Email : marcsnl@proton.me</p>
+    </footer>
 
-        </section>
+  </div> 
 
-        <!-- Guide Section -->
-        <section id="guide" class="page-content">
-            <h3>Guide</h3>
+  <!-- Scripts -->
+  <script src="./script.js"></script>
 
-        </section>
-
-      </main>
-
-      <footer class="footer">
-        <p>Released under <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CC0</a>. No rights reserved.</p>
-      </footer>
-    
-    </div> 
-
-  </body>
-
-  <!-- partial -->
-  <script src="scripts/core-function.js"></script>
-  <script src="scripts/rate-api.js"></script>
-
+</body>
 </html>

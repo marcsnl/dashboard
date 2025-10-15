@@ -78,9 +78,16 @@ nav {
   opacity: 0.75;
 }
 
-.navigation-bar a:hover,
-.navigation-bar a.active-nav {
-  opacity: 1;
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.nav-links li {
+  list-style: none;
+  margin: 0 8px;
+  padding-right: 10px;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .title-page-area{
@@ -95,7 +102,7 @@ nav {
   user-select: none;
 }
 
-#logoLink{
+#titleLink{
   font-size: 30px;
   font-weight: 600;
   opacity: 1;
@@ -112,42 +119,16 @@ nav {
   height: 46px;
   border-radius: 50%;
   object-fit: cover;
-  cursor: pointer;
   border: 2px solid var(--secondary-color);
 }
 
-/* -------- Navigation Bar Links -------- */
-.nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left:26px;
-}
-
-.nav-links li {
-  list-style: none;
-  margin: 0 8px;
-  padding-right: 10px;
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.nav-links li:last-child {
-  border-right: none;
-}
-
-.nav-links-menu-toggle {
-  display: none;
-  font-size: 24px;
-  color: var(--white);
-  cursor: pointer;
-}
-
 /* -------- Appearance Area Style -------- */
-.appearance-area {
+.accessory-area {
   display: flex;
   align-items: center;
 }
 
-.dark-mode-btn {
+.location-btn, .dark-mode-btn {
   width: 50px;
   height: 50px;
   background: var(--secondary-color);
@@ -161,7 +142,7 @@ nav {
   opacity: 0.8;
 }
 
-.dark-mode-btn:hover {
+.location-btn:hover, .dark-mode-btn:hover {
   opacity: 1;
 }
 
@@ -171,36 +152,26 @@ nav {
   padding-top: 50px;
 }
 
-/* -------- Page Links Style -------- */
-
-
-
-
-
-
 /* -------- Main Section Style -------- */
 .page-content {
   margin-top: 70px;
   padding: 0 60px;
   background: var(--ui-bg);
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: left;
   margin-bottom: 40px;
 }
 
-.page-content.active-section {
-  display: flex;
-}
-
-.page-content h3 {
-  font-size: 35px;
-}
-
 .color-text {
   color: var(--primary-color);
+}
+
+.page-content-title{
+  font-size: 30px;
+  margin-top: 40px;
+  margin-bottom: 10px;
 }
 
 .page-content p {
@@ -209,94 +180,126 @@ nav {
   margin: 20px 0 30px;
 }
 
-/* -------- Table Styles -------- */
-.rateSection {
-  margin: 20px auto;
-  max-width: 800px;
-  background: var(--ui-bg);
-  padding: 20px;
-  border: var(--text-color) 1px solid;
-  border-radius: 6px; 
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.date-time-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;           
 }
 
-.rateSection h2 {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 8px;
-  font-size: 24px;
-  color: var(--text-color);
+.date-time-wrapper p {
+  text-align: center; 
+  margin: 5px 0;      
 }
 
-table {
+/* -------- Box Style -------- */
+
+.box-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+  gap: 10px;
   width: 100%;
-  border-collapse: collapse;
+  max-width: 1200px;
+  margin-top: 15px;
 }
 
-th, td {
-  padding: 12px;
-  border-bottom: 1px dashed #ccc;
-}
-
-th {
-  background-color: var(--ui-bg);
-  font-weight: 600;
+.box{
+  background: var(--bg-ui);
+  border: 1px solid gray;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   color: var(--text-color);
-}
-
-#crypto-table th, #crypto-table td {
+  justify-content: center;
   text-align: center;
+  opacity: 1;
 }
 
-#crypto-table th:first-child, #crypto-table td:first-child {
-  text-align: center;
-}
-
-#forex-table th, #forex-table td {
-  text-align: center;
-  width: 50%;
-}
-
-.positive {
-  color: #28a745;
-}
-
-.negative {
-  color: #dc3545;
-}
-
-.na {
-  color: #888;
-}
-
-.error {
-  color: #dc3545;
-  text-align: center;
-  padding: 12px;
-}
-
-.coin-link {
-  display: inline-block;
-  padding: 8px 12px;
-  background: var(--primary-color);
-  color: var(--white);
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.coin-link:hover {
-  background: var(--secondary-color);
-}
-
-.attribution {
-  text-align: center;
-  font-size: 14px;
-  margin-top: 10px;
+.note {
+  display: block;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  font-size: 0.75rem;
   color: var(--text-color);
+  opacity: 0.6;
+  font-style: italic;
 }
 
-.attribution a {
-  text-decoration: none;
+/* -------- Local and Global News Style -------- */
+
+/* -- Local -- */
+
+.local-news-text-container {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  width: 250px;         
+  margin-left: auto;    
+  margin-right: auto;
+}
+
+.local-news-text-ui {
+  position: relative; 
+  height: 40px;         
+  overflow: hidden; 
+  color: #fff; 
+  background-color: var(--bg-ui); 
+  border: 2px solid #ccc;   
+  border-radius: 12px;
+  display: flex;
+  align-items: center;     
+}
+
+.local-news-text-ui .local-news-text {
+  position: relative;
+  left: 0;
+  white-space: nowrap;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 500;
+  transition: left linear;
+  padding: 0 15px;
+  margin: 0;
+}
+
+/* -- Global -- */
+
+.global-news-text-container {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  width: 250px;         
+  margin-left: auto;    
+  margin-right: auto;
+}
+
+.global-news-text-ui {
+  position: relative; 
+  height: 40px;         
+  overflow: hidden; 
+  color: #fff; 
+  background-color: var(--bg-ui); 
+  border: 2px solid #ccc;   
+  border-radius: 12px;
+  display: flex;
+  align-items: center;     
+}
+
+.global-news-text-ui .global-news-text {
+  position: relative;
+  left: 0;
+  white-space: nowrap;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 500;
+  transition: left linear;
+  padding: 0 15px;
+  margin: 0;
+}
+
+/* -- common --*/
+
+.news-btn{
+  width: 180px;
+  height: 50px;
 }
 
 /* -------- Footer -------- */
@@ -306,11 +309,6 @@ th {
   text-align: center;
   padding: 20px;
   margin-top: auto;
-}
-
-.footer a{
-    color: white;
-    text-decoration: none;
 }
 
 /* -------- Dark Mode Theme -------- */
@@ -324,58 +322,27 @@ th {
   display: none;
 }
 
-
-/* -------- Responsive Media -------- */
-@media (max-width: 1100px) {
-  .page-content {
-    padding: 0 30px;
-  }
-
-  .page-content p {
-    width: 90%;
-  }
-}
-
 /* ------- Mobile Device ------- */
 @media (max-width: 768px) {
-  .nav-links-menu-toggle {
-    display: block;
-    margin-left: 25px;
 
+  .page-content {
+    padding: 0 20px; 
   }
-  
-  .nav-links {
-    position: absolute;
-    top: calc(70px + 10px); /* navigation-bar height + gap */
-    left: 43%;
-    align-items: center;
-    transform: translateX(-50%);
-    background: var(--primary-color);
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    border-radius: 8px;
-    display: none; /* hidden by default */
-    width: auto;
-    text-align: center;
+
+  .box-container {
+    grid-template-columns: 1fr; 
+    justify-items: center; 
     justify-content: center;
   }
 
-  .nav-links.show {
-    display: flex;
+  .box {
+    width: 100%;
+    max-width: 360px;
   }
 
-  .nav-links li {
-    border: none;
-    margin: 10px 0;
-  }
-
-  .appearance-area {
+  .accessory-area {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-right: 25px;
   }
-  
-  
 }
