@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 //------------------------ CRYPTO MARKET ---------------------------------
 (async function cryptoBox() {
-  const box = getBox("Crypto Market");
+  const box = document.getElementById("crypto-market");
   try {
     const coins = [
       { id: "bitcoin", name: "BTC" },
@@ -476,6 +476,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       .map(c => ({ ...c, price: data[c.id]?.php || 0 }))
       .sort((a, b) => b.price - a.price);
 
+    // Add prices to the box
     box.innerHTML += priced.map(c =>
       `<p><strong>${c.name}</strong>: ₱${c.price.toLocaleString("en-PH", { maximumFractionDigits: 2 })}</p>`
     ).join("");
@@ -485,3 +486,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     box.innerHTML += `<p>Crypto data unavailable.</p>`;
   }
 })();
+
