@@ -106,6 +106,12 @@ function getBox(title) {
   const content = box?.querySelector(".weather-content");
   if (!content) return;
 
+  // Keep track of last used coordinates and labels for refresh
+  let lastLat = 14.60;
+  let lastLon = 120.98;
+  let lastLabelNote = "(Default)";
+  let lastStatus = "Off";
+
   // Helper: get location name from coordinates
   async function getLocationName(lat, lon) {
     try {
@@ -161,14 +167,22 @@ function getBox(title) {
 
   // Fetch weather and render inside .weather-content
   async function fetchWeather(lat, lon, labelNote = "", locationStatus = "Off") {
-    content.innerHTML = `<p>Fetching weather...</p>`; // temporary loading
+    // Save last used info for refresh
+    lastLat = lat;
+    lastLon = lon;
+    lastLabelNote = labelNote;
+    lastStatus = locationStatus;
+
+    content.innerHTML = `<p>Fetching weather...</p>`;
 
     try {
       const res = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
       );
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       const w = data.current_weather;
+      if (!w) throw new Error("No weather data found");
       const locationName = await getLocationName(lat, lon);
       const description = getWeatherDescription(w.weathercode);
 
@@ -180,8 +194,16 @@ function getBox(title) {
         <p><strong>Condition:</strong> ${description}</p>
       `;
     } catch (e) {
-      content.innerHTML = `<p>Unable to load weather data.</p>`;
       console.error("Weather fetch error:", e);
+      content.innerHTML = `
+        <p>Unable to load weather data.</p>
+        <button id="weatherRefreshBtn" class="news-btn">Refresh</button>
+      `;
+
+      // Bind refresh button to retry last fetch
+      document.getElementById("weatherRefreshBtn")?.addEventListener("click", () => {
+        fetchWeather(lastLat, lastLon, lastLabelNote, lastStatus);
+      });
     }
   }
 
@@ -206,6 +228,7 @@ function getBox(title) {
     }
   });
 })();
+
 
 //---------------------- WORLD CLOCK --------------------------
 (function worldClock() {
@@ -232,35 +255,57 @@ function getBox(title) {
 
 
 //--------------------------- GLOBAL CURRENCY -------------------------------------
-
 (async function currencyBox() {
   const box = getBox("Global Currency");
-  try {
-    // Get base PHP
-    const res = await fetch("https://open.er-api.com/v6/latest/PHP");
-    const data = await res.json();
 
-    if (data.result !== "success") throw new Error("Invalid response");
-
-    // Preferred currencies (in your order)
-    const show = [
-      { code: "USD", label: "US Dollar" },
-      { code: "GBP", label: "British Pound" },
-      { code: "EUR", label: "Euro" },
-      { code: "CNY", label: "Chinese Yuan" },
-      { code: "JPY", label: "Japanese Yen" }
-    ];
-
-    // Convert: 1 [foreign] = X PHP
-    box.innerHTML += show.map(c => {
-      const rate = 1 / data.rates[c.code]; // since base=PHP, invert the rate
-      return `<p><strong>${c.label}</strong> (${c.code}): ₱${rate.toLocaleString("en-PH", { maximumFractionDigits: 2 })}</p>`;
-    }).join("");
-
-  } catch (err) {
-    console.error(err);
-    box.innerHTML += `<p>Currency data unavailable.</p>`;
+  // Create a dynamic content container if not yet present
+  let content = box.querySelector(".currency-content");
+  if (!content) {
+    content = document.createElement("div");
+    content.className = "currency-content";
+    box.appendChild(content);
   }
+
+  async function loadCurrency() {
+    content.innerHTML = `<p>Loading currency data...</p>`;
+
+    try {
+      // Use resilient fetch with retries
+      const data = await fetchWithRetry("https://open.er-api.com/v6/latest/PHP");
+
+      if (data.result !== "success") throw new Error("Invalid response");
+
+      // Preferred currencies (in your order)
+      const show = [
+        { code: "USD", label: "US Dollar" },
+        { code: "GBP", label: "British Pound" },
+        { code: "EUR", label: "Euro" },
+        { code: "CNY", label: "Chinese Yuan" },
+        { code: "JPY", label: "Japanese Yen" }
+      ];
+
+      // Convert: 1 [foreign] = X PHP
+      const output = show.map(c => {
+        const rate = 1 / data.rates[c.code]; // since base=PHP, invert the rate
+        return `<p><strong>${c.label}</strong> (${c.code}): ₱${rate.toLocaleString("en-PH", { maximumFractionDigits: 2 })}</p>`;
+      }).join("");
+
+      content.innerHTML = output;
+
+    } catch (err) {
+      console.error("Currency fetch failed:", err);
+      content.innerHTML = `
+        <p>Currency data unavailable.</p>
+        <button id="currencyRefreshBtn" class="news-btn">Refresh</button>
+      `;
+
+      // Bind refresh button
+      document.getElementById("currencyRefreshBtn")?.addEventListener("click", loadCurrency);
+    }
+  }
+
+  // Initial load
+  await loadCurrency();
 })();
 
 // Utility: Resilient fetch with retries
@@ -277,6 +322,7 @@ async function fetchWithRetry(url, tries = 3, delay = 2000) {
     }
   }
 }
+
 
 //------------------------ LOCAL NEWS ----------------------------------
 (async function localNewsBox() {
@@ -458,32 +504,59 @@ document.addEventListener('DOMContentLoaded', async () => {
 //------------------------ CRYPTO MARKET ---------------------------------
 (async function cryptoBox() {
   const box = document.getElementById("crypto-market");
-  try {
-    const coins = [
-      { id: "bitcoin", name: "BTC" },
-      { id: "tether-gold", name: "XAUT" },
-      { id: "binancecoin", name: "BNB" },
-      { id: "ethereum", name: "ETH" },
-      { id: "ripple", name: "XRP" }
-    ];
 
-    const ids = coins.map(c => c.id).join(",");
-    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=php`);
-    const data = await res.json();
-
-    // Combine and sort by PHP price (descending)
-    const priced = coins
-      .map(c => ({ ...c, price: data[c.id]?.php || 0 }))
-      .sort((a, b) => b.price - a.price);
-
-    // Add prices to the box
-    box.innerHTML += priced.map(c =>
-      `<p><strong>${c.name}</strong>: ₱${c.price.toLocaleString("en-PH", { maximumFractionDigits: 2 })}</p>`
-    ).join("");
-
-  } catch (err) {
-    console.error(err);
-    box.innerHTML += `<p>Crypto data unavailable.</p>`;
+  // Create a container for dynamic crypto content if it doesn't exist
+  let content = box.querySelector(".crypto-content");
+  if (!content) {
+    content = document.createElement("div");
+    content.className = "crypto-content";
+    box.appendChild(content);
   }
+
+  async function loadCrypto() {
+    content.innerHTML = `<p>Loading crypto data...</p>`;
+
+    try {
+      const coins = [
+        { id: "bitcoin", name: "BTC" },
+        { id: "tether-gold", name: "XAUT" },
+        { id: "binancecoin", name: "BNB" },
+        { id: "ethereum", name: "ETH" },
+        { id: "ripple", name: "XRP" }
+      ];
+
+      const ids = coins.map(c => c.id).join(",");
+      const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=php`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const data = await res.json();
+
+      // Combine and sort by PHP price (descending)
+      const priced = coins
+        .map(c => ({ ...c, price: data[c.id]?.php || 0 }))
+        .sort((a, b) => b.price - a.price);
+
+      // Display prices inside content area
+      content.innerHTML = priced
+        .map(c =>
+          `<p><strong>${c.name}</strong>: ₱${c.price.toLocaleString("en-PH", { maximumFractionDigits: 2 })}</p>`
+        )
+        .join("");
+
+    } catch (err) {
+      console.error("Crypto fetch failed:", err);
+      content.innerHTML = `
+        <p>Crypto data unavailable.</p>
+        <button id="cryptoRefreshBtn" class="news-btn">Refresh</button>
+      `;
+
+      // Bind refresh button
+      document.getElementById("cryptoRefreshBtn")?.addEventListener("click", loadCrypto);
+    }
+  }
+
+  // Initial load
+  await loadCrypto();
 })();
+
 
