@@ -1,2 +1,3 @@
 # dashboard
-Asset Dashboard sample project for advance category , with planned implementation of API and stuff, whatever it's called.
+
+Project that focuses on providing sample data accross internet showing (very) basic API integration.
